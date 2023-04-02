@@ -1,2 +1,3 @@
 venv/*
 *.db
+.ipynb_checkpoints/*
