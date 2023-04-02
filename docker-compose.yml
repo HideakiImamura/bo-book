@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  mysql:
+    image: "mysql:8.0.25"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=optuna
+    ports:
+      - "3306:3306"
+  optuna:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/work/
