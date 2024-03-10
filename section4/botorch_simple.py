@@ -4,7 +4,7 @@ from botorch.fit import fit_gpytorch_mll
 from botorch.models import SingleTaskGP
 from botorch.models.transforms.outcome import Standardize
 from botorch.optim import optimize_acqf
-from botorch.sampling.samplers import SobolQMCNormalSampler
+from botorch.sampling import SobolQMCNormalSampler
 from botorch.utils.transforms import normalize
 from botorch.utils.transforms import unnormalize
 from gpytorch.mlls import ExactMarginalLogLikelihood
@@ -14,7 +14,7 @@ import torch
 
 
 def default_candidates_func(
-    train_x, train_obj, train_con, bounds
+    train_x, train_obj, train_con, bounds, pending_x
 ):
 
     train_x = normalize(train_x, bounds=bounds)
@@ -26,7 +26,7 @@ def default_candidates_func(
     acqf = qExpectedImprovement(
         model=model,
         best_f=train_obj.max(),
-        sampler=SobolQMCNormalSampler(num_samples=256),
+        sampler=SobolQMCNormalSampler(torch.Size((256,))),
     )
 
     standard_bounds = torch.zeros_like(bounds)
@@ -48,7 +48,7 @@ def default_candidates_func(
 
 
 def customized_candidates_func(
-    train_x, train_obj, train_con, bounds
+    train_x, train_obj, train_con, bounds, pending_x
 ):
         
     train_x = normalize(train_x, bounds=bounds)

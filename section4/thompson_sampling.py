@@ -47,6 +47,7 @@ def candidates_func(
     train_obj: torch.Tensor,
     train_con: torch.Tensor, 
     bounds: torch.Tensor,
+    pending_x: torch.Tensor,
 ) -> torch.Tensor:
 
     train_x = normalize(train_x, bounds=bounds)

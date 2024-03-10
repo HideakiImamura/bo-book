@@ -1,6 +1,6 @@
 optuna
 scikit-learn>=0.19.0
-botorch>=0.4.0,<0.8.0
+botorch>=0.8.1
 jupyter
 torch
 torchaudio
